@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kubernetes Installer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        h1, h2 { color: #0056b3; }
+        form { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type="text"], input[type="password"], textarea {
+            width: calc(100% - 22px); padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;
+        }
+        textarea { resize: vertical; }
+        input[type="submit"] {
+            background-color: #0056b3; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 20px;
+        }
+        input[type="submit"]:hover { background-color: #004494; }
+        .results-container { margin-top: 30px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .results-container h2 { margin-top: 0; }
+        .results-container ul { list-style-type: none; padding: 0; }
+        .results-container li { background-color: #e9ecef; margin-bottom: 8px; padding: 10px; border-radius: 4px; font-size: 0.9em; }
+        .results-container li pre { white-space: pre-wrap; word-wrap: break-word; margin: 0; font-family: "Courier New", Courier, monospace; }
+        .security-warning { color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px; background-color: #ffebeb; border-radius: 4px;}
+    </style>
+</head>
+<body>
+    <h1>Kubernetes Installer</h1>
+
+    <div class="security-warning">
+        <strong>Security Warning:</strong> This tool uses password-based SSH authentication which is not recommended for production environments.
+        It is intended for experimental and educational purposes only.
+        Ensure you are using it in a secure, isolated environment.
+        Consider using SSH key-based authentication for better security. Data is transmitted to the server, and scripts are executed with sudo privileges.
+    </div>
+
+    {% if results %}
+    <div class="results-container">
+        <h2>Installation Status:</h2>
+    <meta charset="UTF-8">
+    <title>Kubernetes Installer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        h1, h2 { color: #0056b3; }
+        form { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type="text"], input[type="password"], textarea {
+            width: calc(100% - 22px); padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;
+        }
+        textarea { resize: vertical; }
+        input[type="submit"] {
+            background-color: #0056b3; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 20px;
+        }
+        input[type="submit"]:hover { background-color: #004494; }
+        .results-container { margin-top: 30px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .results-container h2 { margin-top: 0; }
+        .results-container ul { list-style-type: none; padding: 0; }
+        .results-container li { background-color: #e9ecef; margin-bottom: 8px; padding: 10px; border-radius: 4px; font-size: 0.9em; }
+        .results-container li pre { white-space: pre-wrap; word-wrap: break-word; margin: 0; font-family: "Courier New", Courier, monospace; }
+        .security-warning { color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px; background-color: #ffebeb; border-radius: 4px;}
+    </style>
+</head>
+<body>
+    <h1>Kubernetes Installer</h1>
+
+    <div class="security-warning">
+        <strong>Security Warning:</strong> This tool uses password-based SSH authentication which is not recommended for production environments.
+        It is intended for experimental and educational purposes only.
+        Ensure you are using it in a secure, isolated environment.
+        Consider using SSH key-based authentication for better security. Data is transmitted to the server, and scripts are executed with sudo privileges.
+    </div>
+
+    {% if results %}
+    <div class="results-container">
+        <h2>Installation Status:</h2>
+        <ul>
+            {% for result in results %}
+            <li><pre>{{ result }}</pre></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form action="/install" method="post">
+        <h2>Master Node Configuration</h2>
+        <label for="master_ip">Master Node IP:</label>
+        <input type="text" id="master_ip" name="master_ip" required>
+
+        <label for="master_username">Master Node Username:</label>
+        <input type="text" id="master_username" name="master_username" required>
+
+        <label for="master_password">Master Node Password:</label>
+        <input type="password" id="master_password" name="master_password" required>
+
+        <h2>Worker Nodes Configuration</h2>
+        <label for="worker_ips">Worker Node IPs (comma-separated, e.g., 192.168.1.101,192.168.1.102):</label>
+        <textarea id="worker_ips" name="worker_ips" rows="3" placeholder="Leave blank if no dedicated workers or if master is also a worker and no other workers."></textarea>
+
+        <label for="worker_username">Worker Node Username (for all workers):</label>
+        <input type="text" id="worker_username" name="worker_username">
+
+        <label for="worker_password">Worker Node Password (for all workers):</label>
+        <input type="password" id="worker_password" name="worker_password">
+        <p style="font-size: 0.8em; color: #666;">Note: If worker details are left blank and worker IPs are provided, master node credentials will be attempted for workers. This is not recommended for production.</p>
+
+
+        <input type="submit" value="Install Kubernetes">
+    </form>
+</body>
+</html>
